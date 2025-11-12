@@ -1,0 +1,568 @@
+{
+  "entities": {
+    "Voyager": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Voyager",
+      "type": "object",
+      "description": "Represents a voyager (cruise ship passenger) in the system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Voyager entity."
+        },
+        "username": {
+          "type": "string",
+          "description": "Voyager's username for login."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Voyager's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Voyager's last name."
+        },
+        "email": {
+          "type": "string",
+          "description": "Voyager's email address.",
+          "format": "email"
+        },
+        "roomNumber": {
+          "type": "string",
+          "description": "The assigned room number for the voyager."
+        },
+        "stayStartDate": {
+          "type": "string",
+          "description": "The start date of the voyager's stay.",
+          "format": "date"
+        },
+        "stayEndDate": {
+          "type": "string",
+          "description": "The end date of the voyager's stay.",
+          "format": "date"
+        }
+      },
+      "required": [
+        "id",
+        "username"
+      ]
+    },
+    "CateringOrder": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CateringOrder",
+      "type": "object",
+      "description": "Represents a catering order placed by a voyager.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the CateringOrder entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N CateringOrder)"
+        },
+        "orderDate": {
+          "type": "string",
+          "description": "Date and time when the order was placed.",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "description": "List of catering items ordered.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total amount for the catering order."
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "orderDate",
+        "items",
+        "totalAmount"
+      ]
+    },
+    "StationeryOrder": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "StationeryOrder",
+      "type": "object",
+      "description": "Represents a stationery order placed by a voyager.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the StationeryOrder entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N StationeryOrder)"
+        },
+        "orderDate": {
+          "type": "string",
+          "description": "Date and time when the order was placed.",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "description": "List of stationery items ordered.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total amount for the stationery order."
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "orderDate",
+        "items",
+        "totalAmount"
+      ]
+    },
+    "ResortMovieTicket": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ResortMovieTicket",
+      "type": "object",
+      "description": "Represents a ticket booking for a resort movie.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ResortMovieTicket entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N ResortMovieTicket)"
+        },
+        "movieName": {
+          "type": "string",
+          "description": "Name of the movie."
+        },
+        "showtime": {
+          "type": "string",
+          "description": "Date and time of the movie showing.",
+          "format": "date-time"
+        },
+        "seatNumber": {
+          "type": "string",
+          "description": "Seat number for the ticket."
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "movieName",
+        "showtime",
+        "seatNumber"
+      ]
+    },
+    "Movie": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Movie",
+      "type": "object",
+      "description": "Represents a movie available for viewing.",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "genre": { "type": "string" },
+        "duration": { "type": "number", "description": "in minutes" },
+        "rating": { "type": "string" },
+        "showtimes": { "type": "array", "items": { "type": "string" } },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["id", "title", "genre", "duration", "rating", "showtimes", "imageUrl"]
+    },
+    "BeautySalonBooking": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BeautySalonBooking",
+      "type": "object",
+      "description": "Represents a booking for a beauty salon service.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the BeautySalonBooking entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N BeautySalonBooking)"
+        },
+        "serviceType": {
+          "type": "string",
+          "description": "Type of beauty salon service."
+        },
+        "appointmentTime": {
+          "type": "string",
+          "description": "Date and time of the appointment.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "serviceType",
+        "appointmentTime"
+      ]
+    },
+    "FitnessCenterBooking": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FitnessCenterBooking",
+      "type": "object",
+      "description": "Represents a booking for the fitness center.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the FitnessCenterBooking entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N FitnessCenterBooking)"
+        },
+        "trainingEquipment": {
+          "type": "string",
+          "description": "Equipment reserved for the booking."
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Start time of the booking.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "End time of the booking.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "trainingEquipment",
+        "startTime",
+        "endTime"
+      ]
+    },
+    "PartyHallBooking": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PartyHallBooking",
+      "type": "object",
+      "description": "Represents a booking for the party hall.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the PartyHallBooking entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "Reference to Voyager. (Relationship: Voyager 1:N PartyHallBooking)"
+        },
+        "hallType": {
+          "type": "string",
+          "description": "Type of party hall (e.g., birthday, wedding)."
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Start time of the booking.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "End time of the booking.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "voyagerId",
+        "hallType",
+        "startTime",
+        "endTime"
+      ]
+    },
+    "Message": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Message",
+      "type": "object",
+      "description": "Represents a message or complaint sent from a voyager to an admin.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Message entity."
+        },
+        "voyagerId": {
+          "type": "string",
+          "description": "The UID of the voyager who sent the message."
+        },
+        "voyagerName": {
+          "type": "string",
+          "description": "The name of the voyager who sent the message."
+        },
+        "voyagerEmail": {
+          "type": "string",
+          "description": "The email of the voyager who sent the message."
+        },
+        "content": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The timestamp when the message was created.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the message.",
+          "enum": ["new", "read", "archived"]
+        }
+      },
+      "required": ["id", "voyagerId", "content", "createdAt", "status"]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/voyagers/{voyagerId}",
+        "definition": {
+          "entityName": "Voyager",
+          "schema": {
+            "$ref": "#/backend/entities/Voyager"
+          },
+          "description": "Stores voyager profile information. The voyagerId corresponds to the Firebase Auth UID. Includes denormalized data as needed to avoid authorization `get()` calls.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/cateringOrders/{cateringOrderId}",
+        "definition": {
+          "entityName": "CateringOrder",
+          "schema": {
+            "$ref": "#/backend/entities/CateringOrder"
+          },
+          "description": "Stores catering orders placed by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who placed the order."
+            },
+            {
+              "name": "cateringOrderId",
+              "description": "The unique identifier for the catering order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/stationeryOrders/{stationeryOrderId}",
+        "definition": {
+          "entityName": "StationeryOrder",
+          "schema": {
+            "$ref": "#/backend/entities/StationeryOrder"
+          },
+          "description": "Stores stationery orders placed by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who placed the order."
+            },
+            {
+              "name": "stationeryOrderId",
+              "description": "The unique identifier for the stationery order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/resortMovieTickets/{resortMovieTicketId}",
+        "definition": {
+          "entityName": "ResortMovieTicket",
+          "schema": {
+            "$ref": "#/backend/entities/ResortMovieTicket"
+          },
+          "description": "Stores resort movie ticket bookings made by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who booked the ticket."
+            },
+            {
+              "name": "resortMovieTicketId",
+              "description": "The unique identifier for the movie ticket booking."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/beautySalonBookings/{beautySalonBookingId}",
+        "definition": {
+          "entityName": "BeautySalonBooking",
+          "schema": {
+            "$ref": "#/backend/entities/BeautySalonBooking"
+          },
+          "description": "Stores beauty salon bookings made by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who made the booking."
+            },
+            {
+              "name": "beautySalonBookingId",
+              "description": "The unique identifier for the beauty salon booking."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/fitnessCenterBookings/{fitnessCenterBookingId}",
+        "definition": {
+          "entityName": "FitnessCenterBooking",
+          "schema": {
+            "$ref": "#/backend/entities/FitnessCenterBooking"
+          },
+          "description": "Stores fitness center bookings made by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who made the booking."
+            },
+            {
+              "name": "fitnessCenterBookingId",
+              "description": "The unique identifier for the fitness center booking."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/voyagers/{voyagerId}/partyHallBookings/{partyHallBookingId}",
+        "definition": {
+          "entityName": "PartyHallBooking",
+          "schema": {
+            "$ref": "#/backend/entities/PartyHallBooking"
+          },
+          "description": "Stores party hall bookings made by voyagers. Located as a subcollection of the voyager. Path-based ownership enforced by security rules using voyagerId.",
+          "params": [
+            {
+              "name": "voyagerId",
+              "description": "The Firebase Auth UID of the voyager who made the booking."
+            },
+            {
+              "name": "partyHallBookingId",
+              "description": "The unique identifier for the party hall booking."
+            }
+          ]
+        }
+      },
+       {
+        "path": "/allCateringOrders/{cateringOrderId}",
+        "definition": {
+          "entityName": "CateringOrder",
+          "schema": { "$ref": "#/backend/entities/CateringOrder" },
+          "description": "Denormalized, top-level collection of all catering orders for admin/supervisor access."
+        }
+      },
+      {
+        "path": "/allStationeryOrders/{stationeryOrderId}",
+        "definition": {
+          "entityName": "StationeryOrder",
+          "schema": { "$ref": "#/backend/entities/StationeryOrder" },
+          "description": "Denormalized, top-level collection of all stationery orders for admin/supervisor access."
+        }
+      },
+       {
+        "path": "/allResortMovieTickets/{resortMovieTicketId}",
+        "definition": {
+          "entityName": "ResortMovieTicket",
+          "schema": { "$ref": "#/backend/entities/ResortMovieTicket" },
+          "description": "Denormalized, top-level collection of all movie tickets for manager access."
+        }
+      },
+      {
+        "path": "/allBeautySalonBookings/{beautySalonBookingId}",
+        "definition": {
+          "entityName": "BeautySalonBooking",
+          "schema": { "$ref": "#/backend/entities/BeautySalonBooking" },
+          "description": "Denormalized, top-level collection of all salon bookings for manager access."
+        }
+      },
+      {
+        "path": "/allFitnessCenterBookings/{fitnessCenterBookingId}",
+        "definition": {
+          "entityName": "FitnessCenterBooking",
+          "schema": { "$ref": "#/backend/entities/FitnessCenterBooking" },
+          "description": "Denormalized, top-level collection of all fitness bookings for manager access."
+        }
+      },
+      {
+        "path": "/allPartyHallBookings/{partyHallBookingId}",
+        "definition": {
+          "entityName": "PartyHallBooking",
+          "schema": { "$ref": "#/backend/entities/PartyHallBooking" },
+          "description": "Denormalized, top-level collection of all party hall bookings for manager access."
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "admin",
+          "schema": {
+            "$ref": "#/backend/entities/Voyager"
+          },
+          "description": "Documents in this collection indicate admin privileges. Existence of a document with the UID as the document ID grants admin access. Uses Existence over Content (DBAC).",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The Firebase Auth UID of the admin user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_manager/{managerId}",
+        "definition": {
+          "entityName": "manager",
+          "schema": {
+            "$ref": "#/backend/entities/Voyager"
+          },
+          "description": "Documents in this collection indicate manager privileges. Existence of a document with the UID as the document ID grants manager access. Uses Existence over Content (DBAC).",
+          "params": [
+            {
+              "name": "managerId",
+              "description": "The Firebase Auth UID of the manager user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/movies/{movieId}",
+        "definition": {
+          "entityName": "Movie",
+          "schema": { "$ref": "#/backend/entities/Movie" },
+          "description": "Publicly available list of movies on the cruise."
+        }
+      },
+      {
+        "path": "/messages/{messageId}",
+        "definition": {
+          "entityName": "Message",
+          "schema": { "$ref": "#/backend/entities/Message" },
+          "description": "Stores messages and complaints from voyagers to admins."
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to reflect the CruiseLink application's entities and relationships while adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC, and QAPs. It prioritizes path-based ownership for user-owned data and leverages denormalization to avoid hierarchical authorization dependencies.\n\n*   **Voyagers:** Each voyager's data is stored under `/voyagers/{voyagerId}`. This path-based ownership simplifies security rules. The voyagerId is the Firebase auth UID.\n*   **CateringOrders, StationeryOrders, ResortMovieTickets, BeautySalonBookings, FitnessCenterBookings, PartyHallBookings:** These entities are all subcollections under `/voyagers/{voyagerId}`. This hierarchical structure represents the one-to-many relationship between a Voyager and their orders/bookings. By placing these as subcollections, we enforce path-based ownership.\n\n**Authorization Independence:** The structure ensures that access control for child entities (orders/bookings) does not rely on reading parent data. Since these are subcollections of `/voyagers/{voyagerId}`, security rules can easily verify that `request.auth.uid == voyagerId` without needing to `get()` the Voyager document.\n\n**QAPs (Rules are not Filters):** The structure supports secure `list` operations because each collection is homogenous in terms of security. For example, listing catering orders under `/voyagers/{voyagerId}/cateringOrders` can be secured by verifying that `request.auth.uid == voyagerId`.\n\n**Admin Privileges**: `/roles_admin/{uid}` provides a simple existence check for admin roles. Security rules can use `exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid))` to grant admin-level access.\n\n**Denormalization for Admin Views**: The `allCateringOrders` and `allStationeryOrders` top-level collections are denormalized copies of orders. This allows admin and supervisor roles to query all orders in a single, performant `list` operation without needing to perform a collection group query, which can be less secure and harder to manage with fine-grained rules."
+  }
+}

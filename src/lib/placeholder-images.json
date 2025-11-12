@@ -1,0 +1,64 @@
+{
+  "placeholderImages": [
+    {
+      "id": "login-hero",
+      "description": "A beautiful cruise ship sailing on the open ocean under a clear blue sky",
+      "imageUrl": "https://images.unsplash.com/photo-1554254464-7046778097bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjcnVpc2UlMjBzaGlwfGVufDB8fHx8MTc2MjcxNTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cruise ship"
+    },
+    {
+      "id": "catering-card",
+      "description": "A delicious spread of food and drinks on a table",
+      "imageUrl": "https://images.unsplash.com/photo-1661529515567-dcb300f41da5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkZWxpY2lvdXMlMjBmb29kfGVufDB8fHx8MTc2MjcyOTM5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "delicious food"
+    },
+    {
+      "id": "stationery-card",
+      "description": "A collection of stationery items like books, gifts, and chocolates",
+      "imageUrl": "https://images.unsplash.com/photo-1474625121024-7595bfbc57ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnaWZ0JTIwc2hvcHxlbnwwfHx8fDE3NjI3NjUxOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gift shop"
+    },
+    {
+      "id": "movies-card",
+      "description": "An empty movie theater with red seats and a large screen",
+      "imageUrl": "https://images.unsplash.com/photo-1485095329183-d0797cdc5676?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtb3ZpZSUyMHRoZWF0ZXJ8ZW58MHx8fHwxNzYyNzAxMTM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "movie theater"
+    },
+    {
+      "id": "salon-card",
+      "description": "A modern and stylish beauty salon interior",
+      "imageUrl": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiZWF1dHklMjBzYWxvbnxlbnwwfHx8fDE3NjI3NzQ4MTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "beauty salon"
+    },
+    {
+      "id": "fitness-card",
+      "description": "A well-equipped fitness center with various exercise machines",
+      "imageUrl": "https://images.unsplash.com/photo-1596357395217-80de13130e92?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Zml0bmVzcyUyMGNlbnRlcnxlbnwwfHx8fDE3NjI2Njk1MDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fitness center"
+    },
+    {
+      "id": "party-card",
+      "description": "A decorated party hall ready for an event",
+      "imageUrl": "https://images.unsplash.com/photo-1670499709326-0adda441388f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwYXJ0eSUyMGhhbGx8ZW58MHx8fHwxNzYyNzcxMjE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "party hall"
+    },
+    {
+      "id": "resort-card",
+      "description": "A luxury resort room with a balcony view of the ocean",
+      "imageUrl": "https://images.unsplash.com/photo-1605537964076-3cb0ea2ff329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bHV4dXJ5JTIwcmVzb3J0fGVufDB8fHx8MTc2Mjc3MzgxNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury resort"
+    },
+    {
+      "id": "admin-dashboard-hero",
+      "description": "A modern command center or bridge of a ship with multiple screens",
+      "imageUrl": "https://images.unsplash.com/photo-1660886072169-8e66caec4d0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjb21tYW5kJTIwY2VudGVyfGVufDB8fHx8MTc2Mjc3NDY2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "command center"
+    },
+    {
+      "id": "voyager-avatar",
+      "description": "A placeholder avatar for a user",
+      "imageUrl": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzYyNzE0NzIyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
+}
