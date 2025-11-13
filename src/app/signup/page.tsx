@@ -37,6 +37,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 
 const userRoles: UserRole[] = ['voyager', 'admin', 'head-cook', 'supervisor', 'manager'];
 
@@ -221,6 +223,27 @@ export default function SignupPage() {
                   You can also log in directly with pre-made accounts on the Sign In page.
                 </AlertDescription>
             </Alert>
+            <Accordion type="single" collapsible className="w-full mb-4">
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-sm">View Test Credentials</AccordionTrigger>
+                <AccordionContent>
+                  <Card className="bg-muted/50 border-dashed">
+                      <CardHeader className="p-4">
+                          <CardTitle className="flex items-center gap-2 text-base"><KeyRound/> Test Accounts</CardTitle>
+                      </CardHeader>
+                      <CardContent className="text-xs p-4 pt-0">
+                          <ul className="space-y-3">
+                            <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
+                            <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
+                            <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
+                            <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
+                            <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
+                          </ul>
+                      </CardContent>
+                  </Card>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -335,24 +358,6 @@ export default function SignupPage() {
           </CardFooter>
         </Card>
       </div>
-
-       <div className="absolute top-1/2 -translate-y-1/2 right-0 hidden xl:block z-20 mr-12">
-            <Card className="bg-background/80 backdrop-blur-sm border-dashed">
-                <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><KeyRound/> Test Credentials</CardTitle>
-                    <CardDescription>Use these accounts on the Sign In page.</CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm">
-                    <ul className="space-y-3">
-                    <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
-                    <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
-                    <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
-                    <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
-                    <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
-                    </ul>
-                </CardContent>
-            </Card>
-        </div>
     </div>
   );
 }
