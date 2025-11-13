@@ -32,6 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setLoading(true);
       if (firebaseUser) {
         setRawUser(firebaseUser);
         const userDocRef = doc(db, 'voyagers', firebaseUser.uid);
@@ -40,10 +41,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const userDoc = await getDoc(userDocRef);
 
           if (userDoc.exists()) {
-            setUser(userDoc.data() as UserProfile);
+            setUser({ ...userDoc.data() } as UserProfile);
           } else {
+            // This case can happen briefly during sign-up before the user document is created.
+            // We create a temporary profile, but it's important that subsequent navigation
+            // or a page refresh will re-trigger this and fetch the full profile once it's available.
             console.warn("User document not found for authenticated user:", firebaseUser.uid);
-            // This can happen briefly during signup. Let's create a temporary profile.
             const role = firebaseUser.email?.includes('@cruiselink.com') ? (firebaseUser.email.split('@')[0] as UserProfile['role']) : 'voyager';
             const tempProfile: UserProfile = {
               uid: firebaseUser.uid,

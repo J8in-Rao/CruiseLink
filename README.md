@@ -139,7 +139,7 @@ Used for generating advanced operational analysis (AI-Powered Admin Reports).
 - `roles_supervisor`
 - `roles_head-cook`
 
-A complete detailed breakdown is available in the *Firestore Database Document* section of the project report.
+A complete detailed breakdown is available in the *Firestore Database Document*.
 
 ---
 
@@ -199,7 +199,6 @@ The password can be anything, as it will create a new user if one doesn't exist.
 -   Real-time Firestore syncing
 -   Dedicated dashboards per role
 -   Clean modular code with reusable components
--   AI-driven admin reporting engine
 -   Extensive analytics with Recharts
 -   Fully deployed on Vercel
 
@@ -207,13 +206,13 @@ The password can be anything, as it will create a new user if one doesn't exist.
 
 ## Screenshots
 
-Add your screenshots here (dashboards, orders, bookings, admin pages).
+UPCOMMING
 
 ---
 
 ## LLD, System Design & Documentation
 
-This repository includes the following essential documents (provided in this submission):
+This repository includes the following essential documents(All are in docs folder):
 
 -   Low-Level Design (LLD)
 -   Detailed Project Report
@@ -222,14 +221,8 @@ This repository includes the following essential documents (provided in this sub
 -   Security Rules Document
 -   Optimization Notes
 
-All documents are designed in a clean, academic, and submission-ready format.
 
 ---
-
-## License
-
-This project is developed as part of an academic submission.
-All rights reserved.
 
 ---
 
