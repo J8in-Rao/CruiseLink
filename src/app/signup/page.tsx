@@ -264,7 +264,7 @@ export default function SignupPage() {
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} disabled={isLoading} />
+                        <Input placeholder="Jane Smith" {...field} disabled={isLoading} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

@@ -216,7 +216,7 @@ export default function LoginPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="voyager@cruiselink.com" {...field} disabled={isLoading} />
+                        <Input placeholder="voyager@email.com" {...field} disabled={isLoading} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
