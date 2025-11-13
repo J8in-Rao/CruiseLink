@@ -249,7 +249,7 @@ export default function LoginPage() {
           </CardFooter>
         </Card>
 
-        <Card className="hidden lg:flex flex-col shadow-2xl">
+        <Card className="hidden lg:flex flex-col bg-transparent shadow-none border-0">
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><KeyRound/> Test Credentials</CardTitle>
             <CardDescription>Use these accounts to explore different roles.</CardDescription>
