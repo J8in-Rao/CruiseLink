@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth';
 import { doc, writeBatch } from 'firebase/firestore';
 import { addDays, formatISO } from 'date-fns';
-import { Eye, EyeOff, Info } from 'lucide-react';
+import { Eye, EyeOff, Info, KeyRound } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -203,142 +203,153 @@ export default function SignupPage() {
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background z-10" />
-      <Card className="w-full max-w-md z-20 shadow-2xl">
-        <CardHeader className="text-center">
-          <div className="mx-auto mb-4">
-            <AppLogo />
-          </div>
-          <CardTitle className="text-3xl font-headline">Create Your Account</CardTitle>
-          <CardDescription>Join CruiseLink and start your journey.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Alert className="mb-4 text-left">
-              <Info className="h-4 w-4" />
-              <AlertTitle>Test Credentials</AlertTitle>
-              <AlertDescription className="text-xs">
-                You can also log in directly with these pre-made accounts on the Sign In page.
-                <ul className="list-disc pl-4 mt-2 space-y-1">
-                  <li><span className="font-semibold">Voyager:</span> `user1@email.com` / `user1234`</li>
-                  <li><span className="font-semibold">Admin:</span> `admin@cruiselink.com` / `admin1234`</li>
-                  <li><span className="font-semibold">Head-Cook:</span> `head-cook@cruiselink.com` / `headcook1234`</li>
-                  <li><span className="font-semibold">Manager:</span> `manager@cruiselink.com` / `manager1234`</li>
-                  <li><span className="font-semibold">Supervisor:</span> `supervisor@cruiselink.com` / `super1234`</li>
-                </ul>
-              </AlertDescription>
-          </Alert>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Doe" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="voyager@email.com" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                     <div className="relative">
+      
+      <div className="z-20 grid w-full max-w-4xl grid-cols-1 gap-8 lg:grid-cols-2">
+        <Card className="w-full shadow-2xl">
+          <CardHeader className="text-center">
+            <div className="mx-auto mb-4">
+              <AppLogo />
+            </div>
+            <CardTitle className="text-3xl font-headline">Create Your Account</CardTitle>
+            <CardDescription>Join CruiseLink and start your journey.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Alert className="mb-4 text-left">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-xs">
+                  You can also log in directly with pre-made accounts on the Sign In page.
+                </AlertDescription>
+            </Alert>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Full Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="John Doe" {...field} disabled={isLoading} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="voyager@email.com" {...field} disabled={isLoading} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <div className="relative">
+                          <FormControl>
+                            <Input type={showPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
+                          </FormControl>
+                          <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                              onClick={() => setShowPassword(!showPassword)}
+                          >
+                              {showPassword ? <EyeOff /> : <Eye />}
+                          </Button>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <div className="relative">
                         <FormControl>
-                          <Input type={showPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
+                          <Input type={showConfirmPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
                         </FormControl>
                         <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? <EyeOff /> : <Eye />}
-                        </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <div className="relative">
-                      <FormControl>
-                        <Input type={showConfirmPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
-                      </FormControl>
-                       <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        >
-                            {showConfirmPassword ? <EyeOff /> : <Eye />}
-                        </Button>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role (for development)</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {userRoles.map(role => (
-                          <SelectItem key={role} value={role} className="capitalize">{role}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Creating Account...' : 'Sign Up'}
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-        <CardFooter className="flex flex-col items-center">
-          <div className="text-sm text-muted-foreground">
-            {'Already have an account? '}
-            <Link href="/" className="font-medium text-primary hover:underline underline-offset-4">
-              Sign In
-            </Link>
-          </div>
-        </CardFooter>
-      </Card>
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          >
+                              {showConfirmPassword ? <EyeOff /> : <Eye />}
+                          </Button>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Role (for development)</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a role" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {userRoles.map(role => (
+                            <SelectItem key={role} value={role} className="capitalize">{role}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? 'Creating Account...' : 'Sign Up'}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+          <CardFooter className="flex flex-col items-center">
+            <div className="text-sm text-muted-foreground">
+              {'Already have an account? '}
+              <Link href="/" className="font-medium text-primary hover:underline underline-offset-4">
+                Sign In
+              </Link>
+            </div>
+          </CardFooter>
+        </Card>
+        
+        <Card className="hidden lg:flex flex-col shadow-2xl">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><KeyRound/> Test Credentials</CardTitle>
+              <CardDescription>Use these accounts on the Sign In page.</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm">
+              <ul className="space-y-3">
+                <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
+                <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
+                <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
+                <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
+                <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
+              </ul>
+            </CardContent>
+          </Card>
+      </div>
     </div>
   );
 }
