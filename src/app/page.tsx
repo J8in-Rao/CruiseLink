@@ -122,8 +122,6 @@ export default function LoginPage() {
 
   const loginHeroImage = PlaceHolderImages.find((img) => img.id === 'login-hero');
 
-  // Don't render the form if we are still checking the user's auth state
-  // or if the user object exists (which means we are about to redirect).
   if (isUserLoading || user) {
     return (
        <div className="relative flex min-h-screen w-full flex-col items-center justify-center bg-background">
@@ -146,6 +144,25 @@ export default function LoginPage() {
     )
   }
 
+  const CredentialsCard = () => (
+    <Card className="bg-muted/50 border-dashed">
+      <CardHeader className="p-4">
+        <CardTitle className="flex items-center gap-2 text-base">
+          <KeyRound /> Test Accounts
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="text-xs p-4 pt-0">
+        <ul className="space-y-3">
+          <li><span className="font-semibold text-foreground">Voyager:</span> <br /> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
+          <li><span className="font-semibold text-foreground">Admin:</span> <br /> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
+          <li><span className="font-semibold text-foreground">Head-Cook:</span> <br /> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
+          <li><span className="font-semibold text-foreground">Manager:</span> <br /> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
+          <li><span className="font-semibold text-foreground">Supervisor:</span> <br /> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
+        </ul>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-background p-4">
       {loginHeroImage && (
@@ -159,9 +176,9 @@ export default function LoginPage() {
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background z-10" />
-      
-      <div className="z-20 flex justify-center w-full max-w-md">
-        <Card className="w-full shadow-2xl">
+
+      <div className="z-20 flex items-center justify-center w-full">
+        <Card className="w-full max-w-md shadow-2xl">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4">
               <AppLogo />
@@ -177,28 +194,19 @@ export default function LoginPage() {
               </AlertDescription>
             </Alert>
 
-            <Accordion type="single" collapsible className="w-full mb-4">
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm">View Test Credentials</AccordionTrigger>
-                <AccordionContent>
-                  <Card className="bg-muted/50 border-dashed">
-                      <CardHeader className="p-4">
-                          <CardTitle className="flex items-center gap-2 text-base"><KeyRound/> Test Accounts</CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-xs p-4 pt-0">
-                          <ul className="space-y-3">
-                            <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
-                            <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
-                            <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
-                            <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
-                            <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
-                          </ul>
-                      </CardContent>
-                  </Card>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            
+            {/* Accordion for Mobile/Tablet */}
+            <div className="lg:hidden">
+              <Accordion type="single" collapsible className="w-full mb-4">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="text-sm">View Test Credentials</AccordionTrigger>
+                  <AccordionContent>
+                    <CredentialsCard />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+            </div>
+
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
@@ -273,6 +281,11 @@ export default function LoginPage() {
             </Link>
           </CardFooter>
         </Card>
+
+        {/* Credentials Card for Desktop */}
+        <div className="hidden lg:block ml-8 w-full max-w-sm">
+          <CredentialsCard />
+        </div>
       </div>
     </div>
   );
