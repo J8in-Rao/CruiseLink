@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth';
 import { doc, writeBatch } from 'firebase/firestore';
 import { addDays, formatISO } from 'date-fns';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Info } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const userRoles: UserRole[] = ['voyager', 'admin', 'head-cook', 'supervisor', 'manager'];
 
@@ -211,6 +212,20 @@ export default function SignupPage() {
           <CardDescription>Join CruiseLink and start your journey.</CardDescription>
         </CardHeader>
         <CardContent>
+          <Alert className="mb-4 text-left">
+              <Info className="h-4 w-4" />
+              <AlertTitle>Test Credentials</AlertTitle>
+              <AlertDescription className="text-xs">
+                You can also log in directly with these pre-made accounts on the Sign In page.
+                <ul className="list-disc pl-4 mt-2 space-y-1">
+                  <li><span className="font-semibold">Voyager:</span> `user1@email.com` / `user1234`</li>
+                  <li><span className="font-semibold">Admin:</span> `admin@cruiselink.com` / `admin1234`</li>
+                  <li><span className="font-semibold">Head-Cook:</span> `head-cook@cruiselink.com` / `headcook1234`</li>
+                  <li><span className="font-semibold">Manager:</span> `manager@cruiselink.com` / `manager1234`</li>
+                  <li><span className="font-semibold">Supervisor:</span> `supervisor@cruiselink.com` / `super1234`</li>
+                </ul>
+              </AlertDescription>
+          </Alert>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField

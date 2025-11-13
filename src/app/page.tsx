@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { Ship, Eye, EyeOff } from 'lucide-react';
+import { Ship, Eye, EyeOff, Info } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -25,7 +25,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth, useUser } from '@/firebase';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import AppLogo from '@/components/app-logo';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
@@ -166,9 +166,17 @@ export default function LoginPage() {
           <CardDescription>Your voyage, simplified. Sign in to continue.</CardDescription>
         </CardHeader>
         <CardContent>
-          <Alert className="mb-4">
-            <AlertDescription className="text-xs text-muted-foreground">
-              Hint: Use `admin@cruiselink.com`, `manager@cruiselink.com`, etc. to test different roles. Any other email will be a standard 'voyager'.
+          <Alert className="mb-4 text-left">
+            <Info className="h-4 w-4" />
+            <AlertTitle>Test Credentials</AlertTitle>
+            <AlertDescription className="text-xs">
+              <ul className="list-disc pl-4 mt-2 space-y-1">
+                <li><span className="font-semibold">Voyager:</span> `user1@email.com` / `user1234`</li>
+                <li><span className="font-semibold">Admin:</span> `admin@cruiselink.com` / `admin1234`</li>
+                <li><span className="font-semibold">Head-Cook:</span> `head-cook@cruiselink.com` / `headcook1234`</li>
+                <li><span className="font-semibold">Manager:</span> `manager@cruiselink.com` / `manager1234`</li>
+                <li><span className="font-semibold">Supervisor:</span> `supervisor@cruiselink.com` / `super1234`</li>
+              </ul>
             </AlertDescription>
           </Alert>
           <Form {...form}>
