@@ -206,7 +206,42 @@ The password can be anything, as it will create a new user if one doesn't exist.
 
 ## Screenshots
 
-UPCOMMING
+### Login Page
+![Login](./public/screenshots/loginpage.png)
+
+### Voyager Dashboard
+![Voyager Dashboard](./public/screenshots/voya-dash.png)
+
+### Catering Items
+![catering-items](./public/screenshots/catering.png)
+
+### Stationery Items
+![stationery-items](./public/screenshots/stat-ord.png)
+
+### Movie Booking
+![catering-items](./public/screenshots/voya-movie.png)
+
+### Admin Dashboard
+![Admin Dashboard](./public/screenshots/admin-dash.png)
+
+### Manage Items (Admin)
+![ADD Items](./public/screenshots/add-cat.png)
+![EDIT Items](./public/screenshots/edit-cat.png)
+
+### Stationery Orders (Supervisor)
+![Stationery Orders](./public/screenshots/stat-ord.png)
+
+### Catering Orders (Head Cook)
+![Catering Orders](./public/screenshots/cat-ord.png)
+
+### Manager Bookings Overview
+![Manager Bookings](./public/screenshots/manager-movie.png)
+
+### Reports and analysis
+![analysis STAT](./public/screenshots/stat-ana.png)
+![analysis CAT](./public/screenshots/cat-ana.png)
+![analysis MANAGER](./public/screenshots/manager-booking-ana.png)
+
 
 ---
 
