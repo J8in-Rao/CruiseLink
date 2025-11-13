@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -158,7 +159,7 @@ export default function LoginPage() {
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background z-10" />
       
-      <div className="z-20 grid w-full max-w-4xl grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="z-20 flex justify-center w-full max-w-md">
         <Card className="w-full shadow-2xl">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4">
@@ -248,24 +249,25 @@ export default function LoginPage() {
             </Link>
           </CardFooter>
         </Card>
-
-        <Card className="hidden lg:flex flex-col bg-transparent shadow-none border-0">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2"><KeyRound/> Test Credentials</CardTitle>
-            <CardDescription>Use these accounts to explore different roles.</CardDescription>
-          </CardHeader>
-          <CardContent className="text-sm">
-            <ul className="space-y-3">
-              <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
-              <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
-              <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
-              <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
-              <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
-            </ul>
-          </CardContent>
-        </Card>
-
       </div>
+
+       <div className="absolute top-1/2 -translate-y-1/2 right-0 hidden xl:block z-20 mr-12">
+            <Card className="bg-background/80 backdrop-blur-sm border-dashed">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><KeyRound/> Test Credentials</CardTitle>
+                    <CardDescription>Use these accounts to explore different roles.</CardDescription>
+                </CardHeader>
+                <CardContent className="text-sm">
+                    <ul className="space-y-3">
+                    <li><span className="font-semibold text-foreground">Voyager:</span> <br/> <span className="text-muted-foreground">user1@email.com / user1234</span></li>
+                    <li><span className="font-semibold text-foreground">Admin:</span> <br/> <span className="text-muted-foreground">admin@cruiselink.com / admin1234</span></li>
+                    <li><span className="font-semibold text-foreground">Head-Cook:</span> <br/> <span className="text-muted-foreground">head-cook@cruiselink.com / headcook1234</span></li>
+                    <li><span className="font-semibold text-foreground">Manager:</span> <br/> <span className="text-muted-foreground">manager@cruiselink.com / manager1234</span></li>
+                    <li><span className="font-semibold text-foreground">Supervisor:</span> <br/> <span className="text-muted-foreground">supervisor@cruiselink.com / super1234</span></li>
+                    </ul>
+                </CardContent>
+            </Card>
+        </div>
     </div>
   );
 }
