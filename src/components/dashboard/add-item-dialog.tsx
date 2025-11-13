@@ -28,8 +28,8 @@ import {
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Loader2 } from 'lucide-react';
+import { cateringItemSchema, stationeryItemSchema } from '@/lib/schemas';
 
-import { itemSchema } from '@/lib/schemas';
 
 type AddItemDialogProps = {
   isOpen: boolean;
@@ -48,8 +48,11 @@ export function AddItemDialog({ isOpen, setIsOpen, context }: AddItemDialogProps
   const [isLoading, setIsLoading] = useState(false);
   const [imageSource, setImageSource] = useState<'url' | 'upload'>('url');
   
+  // Choose the correct schema based on the context type
+  const currentSchema = type === 'catering' ? cateringItemSchema : stationeryItemSchema;
+
   const form = useForm({
-    resolver: zodResolver(itemSchema),
+    resolver: zodResolver(currentSchema),
     defaultValues: {
       name: '',
       category: undefined,
@@ -90,28 +93,26 @@ export function AddItemDialog({ isOpen, setIsOpen, context }: AddItemDialogProps
     }
   };
 
-  const onSubmit = async (data: z.infer<typeof itemSchema>) => {
+  const onSubmit = async (data: z.infer<typeof currentSchema>) => {
     if (!db) return;
     setIsLoading(true);
     const collectionName = type === 'catering' ? 'cateringItems' : 'stationeryItems';
     
     let itemData: any = { ...data };
 
-    // Always set inStock status for new or edited items
     if (!isEditMode) {
-        itemData.inStock = true; // New items are in stock by default
+        itemData.inStock = true;
     } else {
-        // For existing items, preserve their current inStock status, or default to true if it's missing
         itemData.inStock = (item as CateringItem | StationeryItem)?.inStock ?? true;
     }
-
 
     try {
       if (isEditMode && item?.id) {
         await setDoc(doc(db, collectionName, item.id), itemData);
         toast({ title: 'Success', description: 'Item updated successfully.' });
       } else {
-        await addDoc(collection(db, collectionName), itemData);
+        const docRef = doc(collection(db, collectionName));
+        await setDoc(docRef, { ...itemData, id: docRef.id });
         toast({ title: 'Success', description: 'Item added successfully.' });
       }
       setIsOpen(false);
@@ -148,7 +149,7 @@ export function AddItemDialog({ isOpen, setIsOpen, context }: AddItemDialogProps
               control={form.control}
               name="category"
               render={({ field }) => (
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <SelectTrigger>
                     <SelectValue placeholder={`Select a ${type} category`} />
                   </SelectTrigger>

@@ -45,7 +45,7 @@ export default function CateringItemsPage() {
     const handleDelete = async (itemId: string) => {
         if (!db) return;
         if (confirm('Are you sure you want to delete this item?')) {
-        await deleteDoc(doc(db, 'cateringItems', itemId));
+            await deleteDoc(doc(db, 'cateringItems', itemId));
         }
     };
 
