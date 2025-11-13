@@ -2,11 +2,11 @@
 
 CruiseLink is an all-in-one management platform designed to streamline the onboard experience of a cruise ship. It provides a seamless connection between passengers and the various service departments, simplifying requests, bookings, and management for everyone involved.
 
-## 🌐 Live Demo
+## Live Demo
 **Vercel Deployment:** https://cruise-link.vercel.app/  
 **GitHub Repository:** https://github.com/J8in-Rao/CruiseLink  
 
-## 📘 Table of Contents
+## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
 - [User Roles & Permissions](#user-roles--permissions)
@@ -20,16 +20,16 @@ CruiseLink is an all-in-one management platform designed to streamline the onboa
 
 ---
 
-## 🧭 Overview
+## Overview
 CruiseLink acts as the digital backbone of onboard cruise operations. It eliminates manual walkie-talkie-based coordination and allows voyagers to request any onboard service through a modern web interface.
 
 At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head Cook—to efficiently manage orders, bookings, inventory, analytics, and more.
 
 ---
 
-## ✨ Features
+## Features
 
-### 👤 Voyager (Passenger)
+### Voyager (Passenger)
 - Login / signup with room number & stay dates
 - Order Catering items (food, snacks, beverages)
 - Order Stationery & Gift items
@@ -42,7 +42,7 @@ At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head C
 
 ---
 
-### 🛠 Admin (Super User)
+### Admin (Super User)
 - Manage Catering Items (add/edit/delete)
 - Manage Stationery Items
 - Manage Movie listings & showtimes
@@ -53,7 +53,7 @@ At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head C
 
 ---
 
-### 🎥 Manager (Booking Overseer)
+### Manager (Booking Overseer)
 - View all bookings across Movies, Salon, Fitness, and Party Halls
 - Cancel or update any booking
 - Manage movie catalog
@@ -61,7 +61,7 @@ At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head C
 
 ---
 
-### 🧴 Supervisor (Gift Shop Manager)
+### Supervisor (Gift Shop Manager)
 - Manage all Stationery Orders
 - Update order status
 - Mark inventory in/out of stock
@@ -69,14 +69,14 @@ At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head C
 
 ---
 
-### 👨‍🍳 Head Cook (Catering Manager)
+### Head Cook (Catering Manager)
 - View all Catering Orders in real-time
 - Manage menu inventory (inStock toggle)
 - Access **Catering Analytics Dashboard**
 
 ---
 
-## 🏗 Tech Stack
+## Tech Stack
 
 ### **Frontend**
 - Next.js (App Router)
@@ -100,7 +100,7 @@ Used for generating advanced operational analysis (AI-Powered Admin Reports).
 
 ---
 
-## 🧱 Architecture
+## Architecture
 ```
    Next.js (Frontend)
    |
@@ -120,7 +120,7 @@ Used for generating advanced operational analysis (AI-Powered Admin Reports).
 
 ---
 
-## 🗄 Firestore Database Structure (Short Overview)
+## Firestore Database Structure (Short Overview)
 
 ### **Primary Collections**
 
@@ -143,7 +143,7 @@ A complete detailed breakdown is available in the *Firestore Database Document* 
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 1.  Clone the repository  
     ```sh
@@ -193,7 +193,7 @@ The password can be anything, as it will create a new user if one doesn't exist.
 
 ---
 
-## 🧩 Project Highlights
+## Project Highlights
 
 -   Complete role-based access system
 -   Real-time Firestore syncing
@@ -205,13 +205,13 @@ The password can be anything, as it will create a new user if one doesn't exist.
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 Add your screenshots here (dashboards, orders, bookings, admin pages).
 
 ---
 
-## 📂 LLD, System Design & Documentation
+## LLD, System Design & Documentation
 
 This repository includes the following essential documents (provided in this submission):
 
@@ -226,14 +226,14 @@ All documents are designed in a clean, academic, and submission-ready format.
 
 ---
 
-## 📜 License
+## License
 
 This project is developed as part of an academic submission.
 All rights reserved.
 
 ---
 
-## 👤 Developer
+## Developer
 
 Jatin Kumar Rao
 Built using modern tools & real-world system design principles.
