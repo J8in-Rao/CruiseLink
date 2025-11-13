@@ -1,84 +1,239 @@
 # CruiseLink
 
-**CruiseLink** is an all-in-one platform for managing your cruise ship experience. It provides a seamless interface for both passengers (Voyagers) and crew members to manage services, bookings, and orders on board.
+CruiseLink is an all-in-one management platform designed to streamline the onboard experience of a cruise ship. It provides a seamless connection between passengers and the various service departments, simplifying requests, bookings, and management for everyone involved.
 
-## Features
+## 🌐 Live Demo
+**Vercel Deployment:** https://cruise-link.vercel.app/  
+**GitHub Repository:** https://github.com/J8in-Rao/CruiseLink  
 
-CruiseLink offers a role-based system to cater to the specific needs of different users:
+## 📘 Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [User Roles & Permissions](#user-roles--permissions)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Firestore Database Structure](#firestore-database-structure)
+- [How to Run Locally](#how-to-run-locally)
+- [Project Highlights](#project-highlights)
+- [Screenshots](#screenshots)
+- [LLD, System Design & Documentation](#lld-system-design--documentation)
 
-### Voyager (Passenger)
-- **Service Booking:** Book appointments for the Beauty Salon, Fitness Center, and Party Hall.
-- **Entertainment:** Browse and book movie tickets.
-- **Shopping:** Order items from on-board stationery and gift shops.
-- **Catering:** Place orders for food and beverages.
-- **Personal Management:** View and manage all personal bookings and orders in one place.
-- **Profile:** Manage personal profile settings.
+---
 
-### Admin
-- **Item Management:** Add, update, and remove items for catering and stationery.
-- **Voyager Management:** Oversee and manage passenger accounts.
-- **Movie Management:** Manage the list of available movies.
-- **Analytics:** View analytics for catering services.
-- **Order Management:** Track catering orders and manage inventory.
-- **Communications:** Access a shared inbox for voyager communications.
+## 🧭 Overview
+CruiseLink acts as the digital backbone of onboard cruise operations. It eliminates manual walkie-talkie-based coordination and allows voyagers to request any onboard service through a modern web interface.
 
-### Manager
-- **Booking Management:** Oversee and manage bookings for movies, salon, fitness center, and party hall.
-- **Analytics:** Access analytics related to all bookings.
+At the same time, it empowers the staff—Admin, Manager, Supervisor, and Head Cook—to efficiently manage orders, bookings, inventory, analytics, and more.
 
-### Supervisor
-- **Stationery Management:** Manage stationery orders, inventory levels, and item catalog.
-- **Analytics:** View analytics specific to stationery sales.
+---
 
-## Tech Stack
+## ✨ Features
 
-- **Framework:** [Next.js](https://nextjs.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui](https://ui.shadcn.com/)
-- **Backend & Database:** [Firebase](https://firebase.google.com/) (Authentication, Firestore)
-- **AI:** [Google AI Genkit](https://firebase.google.com/docs/genkit)
-- **Form Management:** [React Hook Form](https://react-hook-form.com/) & [Zod](https://zod.dev/)
-- **Charting:** [Recharts](https://recharts.org/)
-- **Icons:** [Lucide React](https://lucide.dev/)
+### 👤 Voyager (Passenger)
+- Login / signup with room number & stay dates
+- Order Catering items (food, snacks, beverages)
+- Order Stationery & Gift items
+- Book Movie Tickets
+- Book Salon Appointments
+- Book Fitness Center sessions (with equipment selection)
+- Reserve Party Halls (Birthday, Wedding, Get-Together, etc.)
+- View **My Orders** & **My Bookings**
+- Send messages to Admin via Help Center
 
-## Getting Started
+---
 
-To get a local copy up and running, follow these simple steps.
+### 🛠 Admin (Super User)
+- Manage Catering Items (add/edit/delete)
+- Manage Stationery Items
+- Manage Movie listings & showtimes
+- View & manage all Voyagers
+- Access the global Voyager Inbox (Help Center)
+- View **Overall Analytics Dashboard**
+- Generate **AI-Powered Operational Reports** using Genkit
 
-### Prerequisites
+---
 
-- Node.js (v20 or later)
-- npm, yarn, or pnpm
+### 🎥 Manager (Booking Overseer)
+- View all bookings across Movies, Salon, Fitness, and Party Halls
+- Cancel or update any booking
+- Manage movie catalog
+- Access **Booking Analytics Dashboard**
 
-### Installation
+---
 
-1.  Clone the repo.
-2.  Install NPM packages
+### 🧴 Supervisor (Gift Shop Manager)
+- Manage all Stationery Orders
+- Update order status
+- Mark inventory in/out of stock
+- Access **Stationery Analytics Dashboard**
+
+---
+
+### 👨‍🍳 Head Cook (Catering Manager)
+- View all Catering Orders in real-time
+- Manage menu inventory (inStock toggle)
+- Access **Catering Analytics Dashboard**
+
+---
+
+## 🏗 Tech Stack
+
+### **Frontend**
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- ShadCN UI
+- Lucide Icons
+- Recharts (Analytics Dashboards)
+- react-hook-form + zod (form validation)
+- date-fns (date handling)
+
+### **Backend**
+- Firebase Authentication
+- Firebase Firestore
+- Firebase Storage (optional)
+- Firestore Rules for RBAC
+
+### **AI Integration**
+- Genkit + Google Generative AI  
+Used for generating advanced operational analysis (AI-Powered Admin Reports).
+
+---
+
+## 🧱 Architecture
+```
+   Next.js (Frontend)
+   |
+   | Firebase Auth (Email/Password)
+   |
+   Firestore Database <--- Firestore Security Rules (Role-based)
+   |
+   | AI Data Query Layer
+   |
+     Genkit (LLM)
+```
+     
+- Pure serverless architecture  
+- Fully role-based Firestore access  
+- Modular React components  
+- Optimized for scalability & maintainability  
+
+---
+
+## 🗄 Firestore Database Structure (Short Overview)
+
+### **Primary Collections**
+
+- `allCateringOrders`
+- `allStationeryOrders`
+- `allResortMovieTickets`
+- `allBeautySalonBookings`
+- `allFitnessCenterBookings`
+- `allPartyHallBookings`
+- `cateringItems`
+- `stationeryItems`
+- `voyagers`
+- `messages`
+- `role_admin`
+- `roles_manager`
+- `roles_supervisor`
+- `roles_head-cook`
+
+A complete detailed breakdown is available in the *Firestore Database Document* section of the project report.
+
+---
+
+## 🚀 How to Run Locally
+
+1.  Clone the repository  
+    ```sh
+    git clone https://github.com/J8in-Rao/CruiseLink
+    cd CruiseLink
+    ```
+
+2.  Install dependencies
     ```sh
     npm install
     ```
-3.  Set up your Firebase project and add your configuration to a `.env.local` file in the root of the project. See `firebase/config.ts`.
 
-### Running the Application
+3.  Add your Firebase config
+    - Copy `.env.example` to `.env.local`
+    - Insert your Firebase keys
 
-1.  To run the web application:
+4.  Run the development server
     ```sh
     npm run dev
     ```
-    The application will be available at `http://localhost:9002`.
 
-2.  To run the Genkit AI development environment:
-    ```sh
-    npm run genkit:dev
-    ```
+5.  Open in browser:
+    http://localhost:3000
 
-## Available Scripts
+### Roles and Accounts
 
-In the project directory, you can run:
+For development purposes, you can easily test each permission level.
 
--   `npm run dev`: Runs the app in the development mode with Turbopack.
--   `npm run build`: Builds the app for production.
--   `npm run start`: Starts the production server.
--   `npm run lint`: Lints the codebase using Next.js's built-in ESLint configuration.
--   `npm run typecheck`: Runs the TypeScript compiler to check for type errors.
--   `npm run genkit:dev`: Starts the Genkit development server.
--   `npm run genkit:watch`: Starts the Genkit development server in watch mode.
+**Method A: The Sign-Up Page (Recommended)**
+
+1.  Navigate to the **Sign Up** page.
+2.  Fill in your name, email, and password.
+3.  Select the desired role from the "Role (for development)" dropdown menu.
+4.  Complete the sign-up.
+
+**Method B: The Login Page (Automatic Role Assignment)**
+
+The system automatically assigns a role based on the email address you use to sign in:
+
+-   **Admin:** `admin@cruiselink.com`
+-   **Manager:** `manager@cruiselink.com`
+-   **Supervisor:** `supervisor@cruiselink.com`
+-   **Head-Cook:** `head-cook@cruiselink.com`
+-   **Voyager:** Any other email address.
+
+The password can be anything, as it will create a new user if one doesn't exist.
+
+---
+
+## 🧩 Project Highlights
+
+-   Complete role-based access system
+-   Real-time Firestore syncing
+-   Dedicated dashboards per role
+-   Clean modular code with reusable components
+-   AI-driven admin reporting engine
+-   Extensive analytics with Recharts
+-   Fully deployed on Vercel
+
+---
+
+## 📸 Screenshots
+
+Add your screenshots here (dashboards, orders, bookings, admin pages).
+
+---
+
+## 📂 LLD, System Design & Documentation
+
+This repository includes the following essential documents (provided in this submission):
+
+-   Low-Level Design (LLD)
+-   Detailed Project Report
+-   Firestore Database Structure Document
+-   Test Case Document
+-   Security Rules Document
+-   Optimization Notes
+
+All documents are designed in a clean, academic, and submission-ready format.
+
+---
+
+## 📜 License
+
+This project is developed as part of an academic submission.
+All rights reserved.
+
+---
+
+## 👤 Developer
+
+Jatin Kumar Rao
+Built using modern tools & real-world system design principles.
