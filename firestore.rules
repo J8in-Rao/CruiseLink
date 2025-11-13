@@ -1,110 +1,157 @@
-/**
- * @fileoverview Firestore Security Rules for CruiseLink application.
- *
- * These rules are configured for a role-based access control system.
- * They grant specific permissions to 'admin', 'supervisor', 'manager', 'head-cook', and 'voyager' roles.
- */
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions to check user roles
-    function isSignedIn() {
+    // ============================================================
+    // Helper Functions
+    // ============================================================
+    function isAdmin() {
+      return exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    function isHeadCook() {
+      return exists(/databases/$(database)/documents/roles_head-cook/$(request.auth.uid));
+    }
+
+    function isSupervisor() {
+      return exists(/databases/$(database)/documents/roles_supervisor/$(request.auth.uid));
+    }
+
+    function isManager() {
+      return exists(/databases/$(database)/documents/roles_manager/$(request.auth.uid));
+    }
+
+    function isAuthenticated() {
       return request.auth != null;
     }
 
-    function isVoyager(uid) {
-      return exists(/databases/$(database)/documents/voyagers/$(uid));
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
     }
 
-    function isAdmin(uid) {
-      return exists(/databases/$(database)/documents/roles_admin/$(uid));
+    function isStaff() {
+      return isAdmin() || isHeadCook() || isSupervisor() || isManager();
     }
 
-    function isSupervisor(uid) {
-      // Supervisors are managed within the admin role for simplicity in this ruleset version
-      return exists(/databases/$(database)/documents/roles_admin/$(uid));
+    // Allow a new user with company email to create their own staff role doc
+    function canCreateOwnStaffRole(userId) {
+      return isOwner(userId) &&
+             request.auth.token.email != null &&
+             request.auth.token.email.matches('.*@cruiselink\\.com');
     }
 
-    function isManager(uid) {
-      return exists(/databases/$(database)/documents/roles_manager/$(uid));
-    }
-    
-    function isHeadCook(uid) {
-      return exists(/databases/$(database)/documents/roles_head-cook/$(uid));
-    }
+    // ============================================================
+    // Voyager Profiles and Private Data
+    // ============================================================
+    match /voyagers/{userId} {
+      // A user can read and update their own profile, admin can read all.
+      allow read: if isOwner(userId) || isAdmin();
+      allow create, update: if isOwner(userId);
 
-    function isOwner(uid) {
-      return request.auth.uid == uid;
-    }
-
-    // Voyagers: Can read/write their own data, but not other voyagers' data.
-    match /voyagers/{voyagerId} {
-      allow read, update, delete: if isSignedIn() && isOwner(voyagerId);
-      allow create: if isSignedIn();
-      
-      // Subcollections for user-specific data
+      // Subcollections like bookings, orders, etc.
       match /{subcollection}/{docId} {
-        allow read, write: if isSignedIn() && isOwner(voyagerId);
+        allow read, create, delete: if isOwner(userId);
+        allow update: if isOwner(userId) ||
+                      (isStaff() && request.resource.data.voyagerId == resource.data.voyagerId);
       }
     }
-    
-    // Roles collections for role-based access control checks.
-    match /roles_admin/{uid} {
-      allow read: if isAdmin(request.auth.uid);
-      allow create: if isSignedIn() && isOwner(uid);
-      allow write: if false; // Should be managed by a trusted backend process
-    }
-    match /roles_manager/{uid} {
-       allow read: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
-       allow create: if isSignedIn() && isOwner(uid);
-       allow write: if false;
-    }
-     match /roles_head-cook/{uid} {
-       allow read: if isAdmin(request.auth.uid) || isHeadCook(request.auth.uid);
-       allow create: if isSignedIn() && isOwner(uid);
-       allow write: if false;
+
+    // ============================================================
+    // Publicly Readable Item Collections
+    // ============================================================
+match /cateringItems/{itemId} {
+  // Authenticated users can read
+  allow read: if isAuthenticated();
+
+  // Admins still have full access (create, update, delete)
+  allow write: if isAdmin();
+
+  // Head-cook can only UPDATE existing documents
+   allow update: if isHeadCook();
+}
+
+
+
+    match /stationeryItems/{itemId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() || isSupervisor();
     }
 
-    // Publicly readable collections
-    match /cateringItems/{itemId} {
-      allow read: if isSignedIn();
-      allow write: if isAdmin(request.auth.uid);
-    }
-    match /stationeryItems/{itemId} {
-      allow read: if isSignedIn();
-      allow write: if isAdmin(request.auth.uid) || isSupervisor(request.auth.uid);
-    }
     match /movies/{movieId} {
-      allow read: if isSignedIn();
-      allow write: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
     }
-    
-    // Denormalized collections for admin/manager views
+
+    // ============================================================
+    // Denormalized Collections for Staff Access
+    // ============================================================
     match /allCateringOrders/{orderId} {
-      allow read, write: if isAdmin(request.auth.uid) || isHeadCook(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isHeadCook() || isAdmin();
     }
+
     match /allStationeryOrders/{orderId} {
-      allow read, write: if isAdmin(request.auth.uid) || isSupervisor(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isSupervisor() || isAdmin();
     }
+
     match /allResortMovieTickets/{ticketId} {
-      allow read, write: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isManager() || isAdmin();
     }
+
     match /allBeautySalonBookings/{bookingId} {
-      allow read, write: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isManager() || isAdmin();
     }
+
     match /allFitnessCenterBookings/{bookingId} {
-      allow read, write: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isManager() || isAdmin();
     }
+
     match /allPartyHallBookings/{bookingId} {
-      allow read, write: if isAdmin(request.auth.uid) || isManager(request.auth.uid);
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isManager() || isAdmin();
     }
-    
-    // Voyager messages/complaints
+
+    // ============================================================
+    // Messages Collection
+    // ============================================================
     match /messages/{messageId} {
-      allow read: if isAdmin(request.auth.uid);
-      allow create: if isSignedIn();
+      allow create: if isAuthenticated() &&
+                     request.resource.data.voyagerId == request.auth.uid;
+      allow read, update: if isAdmin();
+    }
+
+    // ============================================================
+    // Role Management Collections
+    // ============================================================
+    match /roles_admin/{userId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin() || canCreateOwnStaffRole(userId);
+    }
+
+    match /roles_head-cook/{userId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin() || canCreateOwnStaffRole(userId);
+    }
+
+    match /roles_supervisor/{userId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin() || canCreateOwnStaffRole(userId);
+    }
+
+    match /roles_manager/{userId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin() || canCreateOwnStaffRole(userId);
     }
   }
 }

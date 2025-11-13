@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useAppAuth } from '@/components/auth-provider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useRouter } from 'next/navigation';

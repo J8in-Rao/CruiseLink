@@ -29,20 +29,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Loader2 } from 'lucide-react';
 
-const baseSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  price: z.coerce.number().min(0.01, 'Price must be greater than 0'),
-  description: z.string().min(2, 'Description is required'),
-  imageUrl: z.string().url('Please enter a valid URL.'),
-});
-
-const cateringSchema = baseSchema.extend({
-  category: z.enum(['Snacks', 'Food', 'Beverages']),
-});
-
-const stationerySchema = baseSchema.extend({
-  category: z.enum(['Gift Items', 'Chocolates', 'Tale Books']),
-});
+import { itemSchema } from '@/lib/schemas';
 
 type AddItemDialogProps = {
   isOpen: boolean;
@@ -61,10 +48,8 @@ export function AddItemDialog({ isOpen, setIsOpen, context }: AddItemDialogProps
   const [isLoading, setIsLoading] = useState(false);
   const [imageSource, setImageSource] = useState<'url' | 'upload'>('url');
   
-  const currentSchema = type === 'catering' ? cateringSchema : stationerySchema;
-
   const form = useForm({
-    resolver: zodResolver(currentSchema),
+    resolver: zodResolver(itemSchema),
     defaultValues: {
       name: '',
       category: undefined,
@@ -105,7 +90,7 @@ export function AddItemDialog({ isOpen, setIsOpen, context }: AddItemDialogProps
     }
   };
 
-  const onSubmit = async (data: z.infer<typeof currentSchema>) => {
+  const onSubmit = async (data: z.infer<typeof itemSchema>) => {
     if (!db) return;
     setIsLoading(true);
     const collectionName = type === 'catering' ? 'cateringItems' : 'stationeryItems';
