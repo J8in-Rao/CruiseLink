@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { createUserWithEmailAndPassword, updateProfile, User as FirebaseUser } from 'firebase/auth';
 import { doc, writeBatch } from 'firebase/firestore';
 import { addDays, formatISO } from 'date-fns';
+import { Eye, EyeOff } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -60,6 +61,9 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useAuth();
   const db = useFirestore();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -241,9 +245,20 @@ export default function SignupPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} disabled={isLoading} />
-                    </FormControl>
+                     <div className="relative">
+                        <FormControl>
+                          <Input type={showPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
+                        </FormControl>
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff /> : <Eye />}
+                        </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -254,9 +269,20 @@ export default function SignupPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} disabled={isLoading} />
-                    </FormControl>
+                    <div className="relative">
+                      <FormControl>
+                        <Input type={showConfirmPassword ? 'text' : 'password'} placeholder="••••••••" {...field} disabled={isLoading} />
+                      </FormControl>
+                       <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:bg-transparent"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                            {showConfirmPassword ? <EyeOff /> : <Eye />}
+                        </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
